@@ -1,0 +1,43 @@
+version: "3.8"
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - db:/var/lib/postgresql/data'
+    logging:
+      driver: none
+    ports:
+      - 5432:5432
+  redis:
+    image: redis:4.0-alpine
+    command: redis-server
+    volumes:
+      - redis:/data
+    ports:
+      - 6379
+    logging:
+      driver: none
+  web:
+    build:
+      context: .
+      dockerfile: ./docker/DockerFile
+    command: bundle exec rails s -p 3000 -e development -b '0.0.0.0'
+    env_file:
+      - ./.env
+    environment:
+      RAILS_ENV: "${RAILS_ENV}"
+    volumes:
+      - ../:/rails-app
+      - bundle:/bundle
+    ports:
+      - "3000:3000"
+    depends_on:
+      - "db"
+      - "redis"
+volumes:
+  db:
+  bundle:
+  redis:
