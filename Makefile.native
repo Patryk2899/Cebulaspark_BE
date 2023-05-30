@@ -1,0 +1,27 @@
+.PHONY: create
+create:
+	bundle exec rails db:create
+
+.PHONY: migrate
+migrate:
+	bundle exec rails db:migrate
+
+.PHONY: seed
+seed:
+	bundle exec rails db:seed
+
+.PHONY: test
+test:
+	bundle exec rails test
+
+.PHONY: healthcheck
+healthcheck:
+	curl -f http://127.0.0.1:${APP_PORT_INTERNAL}/healthcheck
+
+.PHONY: dependencytrack
+dependencytrack:
+	cyclonedx-ruby -p . -o coverage/bom.xml
+
+.PHONY: wait-for-db
+wait-for-db:
+	bash ./wait-for-db.sh
