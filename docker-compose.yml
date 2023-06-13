@@ -25,6 +25,7 @@ services:
     command: bundle exec rails s -p 3000 -e development -b '0.0.0.0'
     env_file:
       - ./.env
+    entrypoint: ["./docker/entrypoint.sh"]
     environment:
       RAILS_ENV: "${RAILS_ENV}"
     volumes:
