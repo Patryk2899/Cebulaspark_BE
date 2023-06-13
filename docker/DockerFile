@@ -10,7 +10,7 @@ WORKDIR /api
 
 COPY ../Gemfile Gemfile
 COPY ../Gemfile.lock Gemfile.lock
-RUN gem install bundler
+RUN gem install bundler -v 2.4.14
 RUN gem install rails
 RUN bundle install
 

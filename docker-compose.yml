@@ -3,12 +3,10 @@ services:
   db:
     image: postgres
     restart: always
-    environment:
-      - POSTGRES_HOST_AUTH_METHOD=trust
+    hostname: 127.0.0.1
+    env_file: ./.env
     volumes:
-      - db:/var/lib/postgresql/data'
-    logging:
-      driver: none
+      - ./:/usr/src/app
     ports:
       - 5432:5432
   redis:
@@ -35,8 +33,8 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - "db"
-      - "redis"
+      - db
+      - redis
 volumes:
   db:
   bundle:
