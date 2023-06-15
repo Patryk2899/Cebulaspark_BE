@@ -111,6 +111,8 @@ GEM
       railties (>= 5.0.0)
     faker (3.2.0)
       i18n (>= 1.8.11, < 2)
+    fast_jsonapi (1.5)
+      activesupport (>= 4.2)
     globalid (1.1.0)
       activesupport (>= 5.0)
     i18n (1.14.1)
@@ -183,7 +185,7 @@ GEM
       activerecord (= 7.0.5)
       activestorage (= 7.0.5)
       activesupport (= 7.0.5)
-      bundler (>= 2.4.14)
+      bundler (>= 1.15.0)
       railties (= 7.0.5)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
@@ -269,6 +271,7 @@ DEPENDENCIES
   devise-jwt
   factory_bot_rails
   faker
+  fast_jsonapi
   kaminari
   pg (~> 1.1)
   puma (~> 5.0)
