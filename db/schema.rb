@@ -32,7 +32,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_203319) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
-    t.integer "role", default: 0
+    t.integer "user_role", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "jti"
