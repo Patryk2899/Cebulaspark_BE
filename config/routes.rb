@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   get '/current_user', to: 'current_user#index'
 
   devise_for :users, path: '', path_names: {
@@ -11,4 +10,6 @@ Rails.application.routes.draw do
                        sessions: 'users/sessions',
                        registrations: 'users/registrations'
                      }
+  post '/reset_password', to: 'users/passwords#create'
+  put '/update_password', to: 'users/passwords#update'
 end
