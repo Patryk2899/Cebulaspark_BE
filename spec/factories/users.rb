@@ -39,5 +39,11 @@ FactoryBot.define do
     trait :test_email2 do
       email { 'test2@test.pl' }
     end
+
+    trait :test_user do
+      email { 'test_user@wp.pl' }
+      password { 'password' }
+      user_role { :user }
+    end
   end
 end
