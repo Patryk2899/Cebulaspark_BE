@@ -2,7 +2,7 @@ class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher
 
   has_many :bargains
-
+  has_many :comments
   validates_uniqueness_of :email
 
   devise :database_authenticatable, :registerable,
