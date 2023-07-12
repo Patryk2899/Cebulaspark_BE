@@ -1,6 +1,7 @@
 class Bargain < ApplicationRecord
   has_many :bargain_categories
   has_many :categories, through: :bargain_categories
+  has_many :comments
   belongs_to :user
 
   validates :categories, length: { minimum: 1 }
