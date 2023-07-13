@@ -1,8 +1,7 @@
 class CreateBargainCategoryJoinTable < ActiveRecord::Migration[7.0]
   def change
-    create_table :bargain_categories do |t|
-      t.references :bargain, null: false, foreign_key: true
-      t.references :category, null: false, foreign_key: true
+    create_join_table :bargains, :categories do |t|
+      t.index %i[bargain_id category_id]
       t.timestamps
     end
   end
