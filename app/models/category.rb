@@ -1,6 +1,5 @@
 class Category < ApplicationRecord
-  has_many :bargain_categories
-  has_many :bargains, through: :bargain_categories
+  has_and_belongs_to_many :bargains
 
   validates :name, presence: true, uniqueness: true
 

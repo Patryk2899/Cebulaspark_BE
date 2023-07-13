@@ -14,15 +14,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_12_173401) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "bargain_categories", force: :cascade do |t|
-    t.bigint "bargain_id", null: false
-    t.bigint "category_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["bargain_id"], name: "index_bargain_categories_on_bargain_id"
-    t.index ["category_id"], name: "index_bargain_categories_on_category_id"
-  end
-
   create_table "bargains", force: :cascade do |t|
     t.string "title"
     t.boolean "active"
@@ -35,6 +26,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_12_173401) do
     t.index ["user_id"], name: "index_bargains_on_user_id"
   end
 
+  create_table "bargains_categories", id: false, force: :cascade do |t|
+    t.bigint "bargain_id", null: false
+    t.bigint "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bargain_id", "category_id"], name: "index_bargains_categories_on_bargain_id_and_category_id"
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.boolean "active"
@@ -44,6 +43,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_12_173401) do
 
   create_table "comments", force: :cascade do |t|
     t.text "body"
+    t.boolean "deleted", default: false
     t.bigint "bargain_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -81,8 +81,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_12_173401) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
-  add_foreign_key "bargain_categories", "bargains"
-  add_foreign_key "bargain_categories", "categories"
   add_foreign_key "bargains", "users"
   add_foreign_key "comments", "bargains"
   add_foreign_key "comments", "users"

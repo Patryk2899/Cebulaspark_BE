@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher
 
+  delegate :can?, :cannot?, to: :ability
+
   has_many :bargains
   has_many :comments
   validates_uniqueness_of :email
@@ -14,6 +16,10 @@ class User < ApplicationRecord
 
   def self.reset_password_by_token(attributes = {})
     super
+  end
+
+  def admin?
+    user_role == 1
   end
 
   private

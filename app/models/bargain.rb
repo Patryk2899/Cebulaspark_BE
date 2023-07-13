@@ -1,10 +1,11 @@
 class Bargain < ApplicationRecord
-  has_many :bargain_categories
-  has_many :categories, through: :bargain_categories
+  has_and_belongs_to_many :categories
+
   has_many :comments
   belongs_to :user
 
-  validates :categories, length: { minimum: 1 }
+  validate :has_category
+  validates :title, length: { in: 4..70 }
   validates_presence_of :description, :title, :ends_at
   before_save :validate_link
   before_create :validate_ends_at
@@ -12,7 +13,19 @@ class Bargain < ApplicationRecord
 
   before_save :deactivate_if_obsolete
 
+  scope :by_id, ->(id) { where(id:) }
+
+  def destroy
+    update_attribute(:active, false)
+  end
+
   private
+
+  def has_category
+    return unless categories.empty?
+
+    errors.add(:categories, 'need at least category')
+  end
 
   def validate_link
     return if LinkValidationService.new(link).valid?

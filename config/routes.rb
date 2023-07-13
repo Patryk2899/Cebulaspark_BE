@@ -12,4 +12,8 @@ Rails.application.routes.draw do
                      }
   post '/reset_password', to: 'users/passwords#create'
   put '/update_password', to: 'users/passwords#update'
+
+  post '/bargains/create', to: 'bargain#create'
+  put '/bargains/update', to: 'bargain#update'
+  delete '/bargains/delete', to: 'bargain#destroy'
 end
