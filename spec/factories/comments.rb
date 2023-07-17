@@ -6,5 +6,13 @@ FactoryBot.define do
     trait :simple_body do
       body { 'Some random text' }
     end
+
+    trait :deleted do
+      deleted { true }
+    end
+
+    trait :active do
+      deleted { false }
+    end
   end
 end
