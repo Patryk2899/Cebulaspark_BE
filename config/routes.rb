@@ -21,4 +21,8 @@ Rails.application.routes.draw do
   post '/comments/create', to: 'comments#create'
   put '/comments/update', to: 'comments#update'
   delete '/comments/:id', to: 'comments#destroy'
+
+  put '/users/update_email', to: 'users/users#update_email'
+  put '/users/update_password', to: 'users/users#update_password'
+  post '/users/password_check', to: 'users/users#check_password'
 end
