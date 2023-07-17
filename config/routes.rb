@@ -16,4 +16,9 @@ Rails.application.routes.draw do
   post '/bargains/create', to: 'bargain#create'
   put '/bargains/update', to: 'bargain#update'
   delete '/bargains/delete', to: 'bargain#destroy'
+
+  get '/comments/:bargain_id', to: 'comments#show'
+  post '/comments/create', to: 'comments#create'
+  put '/comments/update', to: 'comments#update'
+  delete '/comments/:id', to: 'comments#destroy'
 end
