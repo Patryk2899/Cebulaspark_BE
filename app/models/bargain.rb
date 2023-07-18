@@ -1,8 +1,11 @@
 class Bargain < ApplicationRecord
-  has_and_belongs_to_many :categories
+  has_and_belongs_to_many :categories, through: :bargains_categories
 
   has_many :comments
   belongs_to :user
+  has_one_attached :main_image do |attachable|
+    attachable.variant :thumb, resize_to_limit: [250, 250]
+  end
 
   validate :has_category
   validates :title, length: { in: 4..70 }
