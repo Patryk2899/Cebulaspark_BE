@@ -5,6 +5,8 @@ class Category < ApplicationRecord
 
   before_save :set_as_active
 
+  scope :active, -> { where(active: true) }
+
   private
 
   def set_as_active
