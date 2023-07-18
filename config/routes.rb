@@ -25,4 +25,6 @@ Rails.application.routes.draw do
   put '/users/update_email', to: 'users/users#update_email'
   put '/users/update_password', to: 'users/users#update_password'
   post '/users/password_check', to: 'users/users#check_password'
+
+  get '/categories', to: 'categories#fetch'
 end
