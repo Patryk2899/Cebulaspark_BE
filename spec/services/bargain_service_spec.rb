@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'active_support/core_ext/hash'
 
 RSpec.describe BargainService, type: :model do
   describe 'bargain service test' do
@@ -8,11 +9,12 @@ RSpec.describe BargainService, type: :model do
     let!(:health) { create :category, :health }
 
     it 'should create bargain' do
-      params = { bargain: nil, category: nil }
+      params = { bargain: nil, category: { '0': nil } }
       bargain = build(:bargain, :short_description, :not_obsolete, :valid_link, :title, user_id: test_user.id,
                                                                                         category_ids: health.id)
       params[:bargain] = bargain.as_json.compact
-      params[:category] = [health.as_json]
+      params[:category]['0'] = health.as_json
+      params = ActionController::Parameters.new(params).permit!
       expect(BargainService.new(params, test_user).create).to be :ok
     end
 

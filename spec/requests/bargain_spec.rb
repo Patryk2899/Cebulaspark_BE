@@ -11,19 +11,25 @@ RSpec.describe BargainController, type: :controller do
     let!(:health) { create :category, :health }
 
     it 'returns http success' do
+      request_params = { bargain: nil, category: { '0': nil } }
       authenticated_header(request, test_user)
       simple_bargain = build(:bargain, :short_description, :not_obsolete, :valid_link, :title, user_id: test_user.id,
                                                                                                category_ids: health.id).as_json
-      post :create, params: { bargain: simple_bargain, category: [home.as_json, health.as_json] }
+      request_params[:bargain] = simple_bargain.as_json.compact
+      request_params[:category]['0'] = health.as_json
+      post(:create, params: request_params)
       expect(response).to have_http_status(:success)
     end
 
     it 'returns http bad_request on invalid params' do
+      request_params = { bargain: nil, category: { '0': nil } }
       authenticated_header(request, test_user)
       simple_bargain = build(:bargain, :short_description, :not_obsolete, :valid_link, :title, user_id: test_user.id,
                                                                                                category_ids: health.id)
-      simple_bargain.user_id = 0
-      post :create, params: { bargain: simple_bargain.as_json, category: [home.as_json, health.as_json] }
+      simple_bargain.title = nil
+      request_params[:bargain] = simple_bargain.as_json.compact
+      request_params[:category]['0'] = health.as_json
+      post :create, params: request_params
       expect(response).to have_http_status(:bad_request)
     end
 
