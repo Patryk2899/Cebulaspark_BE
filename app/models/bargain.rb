@@ -1,4 +1,5 @@
 class Bargain < ApplicationRecord
+  include PgSearch::Model
   has_and_belongs_to_many :categories, through: :bargains_categories
 
   has_many :comments
@@ -18,8 +19,17 @@ class Bargain < ApplicationRecord
 
   scope :by_id, ->(id) { where(id:) }
 
+  scope :by_category_id, ->(category_id) { joins(:categories).where(categories: { id: category_id }) }
+  scope :active, -> { where(active: true) }
+  pg_search_scope :search_title, against: :title
+
   def destroy
     update_attribute(:active, false)
+  end
+
+  def main_image_url
+    return Rails.application.routes.url_helpers.url_for(self.main_image) if self.main_image.attached?
+    nil
   end
 
   private

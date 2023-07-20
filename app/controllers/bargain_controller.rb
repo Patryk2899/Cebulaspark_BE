@@ -1,5 +1,22 @@
 class BargainController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: %i[create update destroy]
+
+  def fetch
+    bargain = Bargain.find(params[:id])
+    if bargain
+      render status: :ok, json: bargain
+    else
+      render status: :bad_request
+    end
+  end
+
+  def show
+    bargains = Bargain.active
+    bargains = bargains.by_category_id(params[:category][:id]) if params[:category]
+    bargains = bargains.search_title(params[:search]) if params[:search]
+
+    render status: :ok, json: bargains, each_serializer: BargainSerializer
+  end
 
   def create
     status = BargainService.new(bargain_params, current_user).create

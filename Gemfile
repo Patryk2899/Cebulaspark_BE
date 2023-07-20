@@ -38,7 +38,11 @@ gem 'apipie-rails'
 
 gem "httpx"
 
+gem 'active_model_serializers'
+
 gem 'image_processing', '~> 1.2'
+
+gem 'pg_search', '~> 2.3', '>= 2.3.2'
 
 gem 'dotenv-rails', groups: [:development, :test]
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]

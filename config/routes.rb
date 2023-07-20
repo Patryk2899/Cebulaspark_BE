@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  default_url_options :host => "http://localhost:3000"
+
   get '/current_user', to: 'current_user#index'
 
   devise_for :users, path: '', path_names: {
@@ -16,6 +18,8 @@ Rails.application.routes.draw do
   post '/bargains/create', to: 'bargain#create'
   put '/bargains/update', to: 'bargain#update'
   delete '/bargains/delete', to: 'bargain#destroy'
+  get '/bargains/show', to: 'bargain#show'
+  get '/bargains', to: 'bargain#fetch'
 
   get '/comments/:bargain_id', to: 'comments#show'
   post '/comments/create', to: 'comments#create'
