@@ -4,9 +4,7 @@ class Bargain < ApplicationRecord
 
   has_many :comments
   belongs_to :user
-  has_one_attached :main_image do |attachable|
-    attachable.variant :thumb, resize_to_limit: [250, 250]
-  end
+  has_one_attached :main_image
 
   validate :has_category
   validates :title, length: { in: 4..70 }
@@ -15,7 +13,7 @@ class Bargain < ApplicationRecord
   before_create :validate_ends_at
   before_create :set_as_active
 
-  before_save :deactivate_if_obsolete
+  before_update :deactivate_if_obsolete
 
   scope :by_id, ->(id) { where(id:) }
 
@@ -28,7 +26,8 @@ class Bargain < ApplicationRecord
   end
 
   def main_image_url
-    return Rails.application.routes.url_helpers.url_for(self.main_image) if self.main_image.attached?
+    return Rails.application.routes.url_helpers.url_for(main_image) if main_image.attached?
+
     nil
   end
 
@@ -59,6 +58,6 @@ class Bargain < ApplicationRecord
   end
 
   def deactivate_if_obsolete
-    self.active = false if ends_at < DateTime.now
+    self.active = (!(ends_at < DateTime.now))
   end
 end

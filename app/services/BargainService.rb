@@ -13,6 +13,7 @@ class BargainService
     bargain = Bargain.new(@bargain_params&.compact)
     bargain.user = @current_user
 
+    resize_image if @image
     bargain.main_image.attach(@image) if @image
 
     bargain.categories << Category.find(@categories.to_hash.map { |_key, value| value['id'].to_i }) if @categories
@@ -28,7 +29,9 @@ class BargainService
     return :bad_request if bargain.nil?
     return :bad_request if bargain.user != @current_user
 
+    resize_image if @image
     bargain.main_image.attach(@image) if @image
+
     bargain.categories = Category.find(@categories.map { |category| category['id'] }) if @categories
     @bargain_params.delete(:id)
     return :bad_request unless Bargain.update(bargain.id, @bargain_params).errors.empty?
@@ -42,5 +45,12 @@ class BargainService
 
     bargain.destroy
     :ok
+  end
+
+  def resize_image
+    path = @image.tempfile.path
+    ImageProcessing::MiniMagick.source(path)
+                               .resize_to_limit(150, 150)
+                               .call(destination: path)
   end
 end

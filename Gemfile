@@ -36,7 +36,9 @@ gem 'cancancan'
 
 gem 'apipie-rails'
 
-gem "httpx"
+# gem 'mini_magick'
+
+gem 'httpx'
 
 gem 'active_model_serializers'
 
@@ -44,9 +46,8 @@ gem 'image_processing', '~> 1.2'
 
 gem 'pg_search', '~> 2.3', '>= 2.3.2'
 
-gem 'dotenv-rails', groups: [:development, :test]
+gem 'dotenv-rails', groups: %i[development test]
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'

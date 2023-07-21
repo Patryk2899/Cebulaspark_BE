@@ -13,7 +13,7 @@ class BargainController < ApplicationController
   def show
     bargains = Bargain.active
     bargains = bargains.by_category_id(params[:category][:id]) if params[:category]
-    bargains = bargains.search_title(params[:search]) if params[:search]
+    bargains = bargains.search_title(params[:title]) if params[:title]
 
     render status: :ok, json: bargains, each_serializer: BargainSerializer
   end
