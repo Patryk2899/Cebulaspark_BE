@@ -50,7 +50,7 @@ class BargainService
   def resize_image
     path = @image.tempfile.path
     ImageProcessing::MiniMagick.source(path)
-                               .resize_to_limit(150, 150)
+                               .resize_to_limit(90, 90)
                                .call(destination: path)
   end
 end
