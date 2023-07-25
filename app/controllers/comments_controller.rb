@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
   def show
     comments = Comment.by_bargain(show_params[:bargain_id]).active.to_a
 
-    render json: comments, status: :ok
+    render status: :ok, json: comments, each_serializer: CommentsSerializer
   end
 
   def create
