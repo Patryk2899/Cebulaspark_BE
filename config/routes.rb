@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  default_url_options :host => "http://localhost:3000"
+  default_url_options host: 'http://localhost:3000'
 
   get '/current_user', to: 'current_user#index'
 
@@ -31,4 +31,6 @@ Rails.application.routes.draw do
   post '/users/password_check', to: 'users/users#check_password'
 
   get '/categories', to: 'categories#fetch'
+
+  post '/change/email', to: 'emails#update'
 end
