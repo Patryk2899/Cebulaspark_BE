@@ -47,7 +47,7 @@ class Bargain < ApplicationRecord
   end
 
   def validate_ends_at
-    return unless ends_at.< DateTime.now
+    return unless ends_at <= Date.today
 
     errors.add(:ends_at, 'Ending date is in the past')
     throw :abort
