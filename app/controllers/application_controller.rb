@@ -1,4 +1,5 @@
-class ApplicationController < ActionController::API
-  respond_to :json
+class ApplicationController < ActionController::Base
+  respond_to :html, :json
   include ActionController::MimeResponds
+  include ActionView::Layouts
 end

@@ -1,17 +1,15 @@
 Rails.application.routes.draw do
-  default_url_options host: 'http://localhost:3000'
+  devise_for :user, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+
+  devise_scope :user do
+    post '/login', to: 'users/sessions#create'
+    post '/logout', to: 'users/sessions#destroy'
+    post '/signup', to: 'users/registrations#create'
+  end
 
   get '/current_user', to: 'current_user#index'
 
-  devise_for :users, path: '', path_names: {
-                                 sign_in: 'login',
-                                 sign_out: 'logout',
-                                 registration: 'signup'
-                               },
-                     controllers: {
-                       sessions: 'users/sessions',
-                       registrations: 'users/registrations'
-                     }
   post '/reset_password', to: 'users/passwords#create'
   put '/update_password', to: 'users/passwords#update'
 

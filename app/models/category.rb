@@ -7,6 +7,14 @@ class Category < ApplicationRecord
 
   scope :active, -> { where(active: true) }
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[active created_at id name updated_at]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    ['bargains']
+  end
+
   private
 
   def set_as_active
