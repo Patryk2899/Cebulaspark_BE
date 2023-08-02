@@ -4,6 +4,11 @@ module Users
   class RegistrationsController < Devise::RegistrationsController
     include RackSessionFix
     respond_to :json
+    protect_from_forgery except: :create
+
+    def create
+      super
+    end
 
     private
 

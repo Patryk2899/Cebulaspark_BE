@@ -8,6 +8,10 @@ class Comment < ApplicationRecord
   scope :active, -> { where(deleted: false) }
   scope :by_bargain, ->(id) { where(bargain_id: id) }
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[bargain_id body created_at deleted id updated_at user_id]
+  end
+
   def destroy
     update_attribute(:deleted, true)
   end

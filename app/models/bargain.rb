@@ -1,11 +1,12 @@
 class Bargain < ApplicationRecord
   include PgSearch::Model
-  has_and_belongs_to_many :categories, through: :bargains_categories
+  has_and_belongs_to_many :categories
+  has_many :bargain_categories
+  accepts_nested_attributes_for :categories, allow_destroy: true
 
   has_many :comments
   belongs_to :user
   has_one_attached :main_image
-
   validate :has_category
   validates :title, length: { in: 4..70 }
   validates_presence_of :description, :title, :ends_at
@@ -14,6 +15,8 @@ class Bargain < ApplicationRecord
   before_create :set_as_active
 
   before_update :deactivate_if_obsolete
+
+  attr_accessor :bargains_categories
 
   scope :by_id, ->(id) { where(id:) }
 
@@ -29,6 +32,14 @@ class Bargain < ApplicationRecord
     return Rails.application.routes.url_helpers.url_for(main_image) if main_image.attached?
 
     nil
+  end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[active created_at description ends_at id link title updated_at user_id]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[categories comments main_image_attachment main_image_blob user]
   end
 
   private

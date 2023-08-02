@@ -4,6 +4,15 @@ module Users
   class SessionsController < Devise::SessionsController
     include RackSessionFix
     respond_to :json
+    protect_from_forgery except: %i[create destroy]
+
+    def create
+      super
+    end
+
+    def destroy
+      super
+    end
 
     private
 

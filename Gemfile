@@ -6,6 +6,8 @@ ruby '3.2.2'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.4'
 
+gem 'sassc-rails'
+
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 
@@ -28,11 +30,15 @@ gem 'devise'
 
 gem 'devise-jwt'
 
+gem 'activeadmin'
+
 gem 'fast_jsonapi'
 
 gem 'kaminari'
 
 gem 'cancancan'
+
+gem 'sprockets-rails'
 
 gem 'apipie-rails'
 
@@ -45,6 +51,10 @@ gem 'active_model_serializers'
 gem 'image_processing', '~> 1.2'
 
 gem 'pg_search', '~> 2.3', '>= 2.3.2'
+
+gem 'draper'
+
+gem 'pundit'
 
 gem 'dotenv-rails', groups: %i[development test]
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
