@@ -1,5 +1,7 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!, only: %i[create update destroy]
+  skip_before_action :verify_authenticity_token
+  respond_to :json
 
   def show
     comments = Comment.by_bargain(show_params[:bargain_id]).active.to_a

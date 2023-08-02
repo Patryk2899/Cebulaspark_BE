@@ -58,7 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_31_224125) do
 
   create_table "bargains", force: :cascade do |t|
     t.string "title"
-    t.boolean "active"
+    t.boolean "active", default: true
     t.datetime "ends_at"
     t.text "description"
     t.string "link"

@@ -5,6 +5,7 @@ module Users
     include RackSessionFix
     respond_to :json
     protect_from_forgery except: %i[create destroy]
+    skip_before_action :verify_authenticity_token, only: %i[create destroy]
 
     def create
       super

@@ -1,5 +1,7 @@
 class BargainController < ApplicationController
   before_action :authenticate_user!, only: %i[create update destroy]
+  skip_before_action :verify_authenticity_token
+  respond_to :json
 
   def fetch
     bargain = Bargain.find(params[:id])

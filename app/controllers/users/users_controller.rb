@@ -1,6 +1,8 @@
 module Users
   class UsersController < ApplicationController
     before_action :authenticate_user!
+    skip_before_action :verify_authenticity_token
+    respond_to :json
 
     def update_password
       if current_user.update(password: params[:password])
