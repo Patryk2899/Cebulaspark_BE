@@ -11,5 +11,13 @@ FactoryBot.define do
     trait :health do
       name { 'health' }
     end
+
+    trait :kids do
+      name { 'kids' }
+    end
+
+    trait :pets do
+      name { 'pets' }
+    end
   end
 end

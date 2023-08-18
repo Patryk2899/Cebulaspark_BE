@@ -1,7 +1,7 @@
 module Users
   class PasswordsController < ApplicationController
     respond_to :json
-
+    protect_from_forgery except: %i[create update]
     def create
       PasswordService.new.send_password_change_request(params[:email])
       respond_on_change_request
