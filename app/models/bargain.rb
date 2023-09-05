@@ -1,5 +1,9 @@
 class Bargain < ApplicationRecord
   include PgSearch::Model
+  pg_search_scope :search_bargain,
+                  against: %i[title description], associated_against: { categories: [:name] }, using: {
+                    tsearch: { prefix: true }
+                  }
   has_and_belongs_to_many :categories
   has_many :bargain_categories
   accepts_nested_attributes_for :categories, allow_destroy: true
